@@ -12,7 +12,7 @@ redirects    = config["redirects"] || {}
 should_proxy = NginxConfigUtil.should_proxy(config["accept"])
 
 # Nginx.rputs req.uri
-# Nginx.rputs req.var.uri
+Nginx.echo req.var.uri
 #
 # hin = Nginx::Headers_in.new
 # hin.all.keys.each do |k|
