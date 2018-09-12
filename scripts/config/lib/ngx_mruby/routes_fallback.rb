@@ -11,7 +11,17 @@ proxies      = config["proxies"] || {}
 redirects    = config["redirects"] || {}
 should_proxy = NginxConfigUtil.should_proxy(config["accept"])
 
-if (proxy = NginxConfigUtil.match_proxies(proxies.keys, uri)) && (should_proxy || !(Regexp.compile("/users") =~ uri).nil?)
+# Nginx.rputs req.uri
+# Nginx.rputs req.var.uri
+#
+# hin = Nginx::Headers_in.new
+# hin.all.keys.each do |k|
+#   Server.echo "#{k}: #{hin[k]}"
+# end
+# Nginx.rputs Nginx::Headers_in.new
+
+
+if (proxy = NginxConfigUtil.match_proxies(proxies.keys, uri)) && (should_proxy || !(Regexp.compile("/users") =~ req.uri).nil?)
   "@#{proxy}"
 elsif redirect = NginxConfigUtil.match_redirects(redirects.keys, uri)
   "@#{redirect}"
