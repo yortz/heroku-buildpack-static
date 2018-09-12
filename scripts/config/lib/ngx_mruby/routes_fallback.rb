@@ -21,7 +21,7 @@ should_proxy = NginxConfigUtil.should_proxy(config["accept"])
 # Nginx.rputs Nginx::Headers_in.new
 
 
-if (proxy = NginxConfigUtil.match_proxies(proxies.keys, uri)) && (should_proxy || uri.starts_with?("/users") || req.uri.starts_with?("/users"))
+if (proxy = NginxConfigUtil.match_proxies(proxies.keys, uri)) && (should_proxy || uri.start_with?("/users") || req.uri.start_with?("/users"))
   "@#{proxy}"
 elsif redirect = NginxConfigUtil.match_redirects(redirects.keys, uri)
   "@#{redirect}"
