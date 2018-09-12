@@ -49,7 +49,7 @@ http {
   <% if proxies.any? %>
     resolver <%= resolver %>;
   <% end %>
-  <% if canonical_host %>
+  <% if canonical_host != "" %>
     server_name <%= canonical_host %>;
   <% end %>
 
@@ -116,7 +116,7 @@ http {
 
   }
 
-<% if canonical_host %>
+<% if canonical_host != "" %>
   server {
     listen <%= port %> default_server;
     server_name _;
