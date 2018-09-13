@@ -66,6 +66,7 @@ http {
     location ~ ^/users {
       proxy_ssl_server_name on;
       proxy_pass https://hivebench.herokuapp.com;
+      proxy_redirect https://hivebench.herokuapp.com/ /;
     }
 
   <% if clean_urls %>
