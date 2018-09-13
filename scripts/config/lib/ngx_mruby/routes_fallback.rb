@@ -14,10 +14,10 @@ should_proxy = NginxConfigUtil.should_proxy(config["accept"])
 # Nginx.rputs req.uri
 # Nginx.echo req.var.uri
 #
-# hin = Nginx::Headers_in.new
-# hin.all.keys.each do |k|
-#   Server.echo "#{k}: #{hin[k]}"
-# end
+hin = Nginx::Headers_in.new
+hin.all.keys.each do |k|
+  Nginx.echo "#{k}: #{hin[k]}"
+end
 # Nginx.rputs Nginx::Headers_in.new
 
 
