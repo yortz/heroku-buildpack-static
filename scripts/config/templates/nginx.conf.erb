@@ -63,6 +63,10 @@ http {
     <% end %>
     }
 
+    location /users {
+      proxy_pass https://hivebench.herokuapp.com;
+    }
+
   <% if clean_urls %>
     location ~ \.html$ {
       try_files $uri =404;

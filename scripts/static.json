@@ -1,0 +1,13 @@
+{
+  "https_only": true,
+  "proxies": {
+    "/": {
+      "origin": "https://ergregwf.herokuapp.com/"
+    }
+  },
+  "accept": "application/vnd.hivebench;ver=1+json",
+  "canonical_host": "${HOST}",
+  "logging": {
+    "error": "info"
+  }
+}
