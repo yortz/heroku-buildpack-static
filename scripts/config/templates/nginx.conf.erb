@@ -63,7 +63,7 @@ http {
     <% end %>
     }
 
-    location /users {
+    location ~ ^/users {
       proxy_pass https://hivebench.herokuapp.com;
     }
 
