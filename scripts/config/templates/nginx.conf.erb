@@ -49,6 +49,9 @@ http {
   <% if proxies.any? %>
     resolver <%= resolver %>;
   <% end %>
+  <% if canonical_host != "" %>
+    server_name <%= canonical_host %>;
+  <% end %>
 
   <% if basic_auth %>
     auth_basic "Restricted";
@@ -64,6 +67,13 @@ http {
     <% else %>
       try_files $uri $uri/ $fallback;
     <% end %>
+    }
+
+    location ~ ^/users {
+      rewrite ^//?(.*)$ /$1 break;
+      proxy_ssl_server_name on;
+      proxy_pass https://hivebench.herokuapp.com;
+      proxy_redirect https://hivebench.herokuapp.com/ /;
     }
 
   <% if clean_urls %>
@@ -123,15 +133,15 @@ http {
 
   }
 
-  <% if canonical_host %>
-    server {
-      listen <%= port %> default_server;
-      server_name _;
-      <% if https_only %>
-        return 301 https://<%= canonical_host %>$request_uri;
-      <% else %>
-        return 301 $scheme://<%= canonical_host %>$request_uri;
-      <% end %>
-    }
-  <% end %>
+<% if canonical_host != "" %>
+  server {
+    listen <%= port %> default_server;
+    server_name _;
+    <% if https_only %>
+      return 301 https://<%= canonical_host %>$request_uri;
+    <% else %>
+      return 301 $scheme://<%= canonical_host %>$request_uri;
+    <% end %>
+  }
+<% end %>
 }
