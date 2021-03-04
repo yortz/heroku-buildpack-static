@@ -53,8 +53,14 @@ http {
     server_name <%= canonical_host %>;
   <% end %>
 
+  <% if basic_auth %>
+    auth_basic "Restricted";
+    auth_basic_user_file <%= basic_auth_htpasswd_path %>;
+  <% end %>
+
+    mruby_post_read_handler /app/bin/config/lib/ngx_mruby/headers.rb cache;
+
     location / {
-      mruby_post_read_handler /app/bin/config/lib/ngx_mruby/headers.rb cache;
       mruby_set $fallback /app/bin/config/lib/ngx_mruby/routes_fallback.rb cache;
     <% if clean_urls %>
       try_files $uri.html $uri $uri/ $fallback;
@@ -80,6 +86,10 @@ http {
     if ($http_x_forwarded_proto != "https") {
       return 301 https://$host$request_uri;
     }
+  <% end %>
+
+  <% if canonical_host %>
+    server_name <%= canonical_host %>;
   <% end %>
 
   <% routes.each do |route, path| %>
